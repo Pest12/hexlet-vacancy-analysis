@@ -4,8 +4,8 @@ import requests
 
 from app.parser import get_fixture_data, save_data
 
-CACHE_FILE = os.path.join('app', 'services', 'parser', 'api_parser',
-                          'city_region_mapping.json'
+CACHE_FILE = os.path.join('app', 'services', 'hh', 'hh_parser',
+                          'utils', 'hh_city_region_mapping.json'
                           )
 
 
