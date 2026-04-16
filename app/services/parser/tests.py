@@ -204,7 +204,9 @@
 #     @patch('requests.Session.get')
 #     @patch('app.services.parser.api_parser.base_parser.os.path.exists')
 #     @patch('app.services.parser.api_parser.base_parser.save_data')
-#     def test_get_city_to_region_mapping_fetch_hh(self, mock_save, mock_exists, mock_get):
+#     def test_get_city_to_region_mapping_fetch_hh(
+#       self, mock_save, mock_exists, mock_get
+    #     ):
 #         mock_exists.return_value = False
 #
 #         mock_response = MagicMock()
