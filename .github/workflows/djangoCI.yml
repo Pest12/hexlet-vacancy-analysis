@@ -83,5 +83,6 @@ jobs:
       - name: Run tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY || 'secret' }}
+          DEBUG: 'True'
         run: |
           make test-backend
