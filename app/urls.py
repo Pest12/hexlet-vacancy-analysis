@@ -1,6 +1,5 @@
 """
 URL configuration for app project.
-URL configuration for app project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -46,6 +45,7 @@ urlpatterns = [
     path("parser/", include("app.services.parser.urls")),
     path("vacancies/", include("app.services.vacancies.urls")),
     path("blog/", include("app.services.blog.urls")),
+    path('regions/', include('app.services.regions.urls'), name='regions'),
 ]
 
 handler500 = views.custom_server_error
