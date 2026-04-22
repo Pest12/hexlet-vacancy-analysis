@@ -83,6 +83,8 @@ jobs:
       - name: Run tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY || 'secret' }}
-          DEBUG: 'True'
+          DEBUG: 'False'
+          ALLOWED_HOSTS: 'localhost,127.0.0.1,testserver'
+          DATABASE_ENGINE: 'sqlite3'
         run: |
           make test-backend
