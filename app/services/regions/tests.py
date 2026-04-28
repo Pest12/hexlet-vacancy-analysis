@@ -47,6 +47,7 @@ class RegionsTest(InertiaTestCase):
         for i in range(26):
             Vacancy.objects.create(
                 region='Москва',
+                region_code=77,
                 platform_vacancy_id=str(i),
                 company=test_company,
                 title=f'Test {i}',
