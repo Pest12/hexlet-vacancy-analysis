@@ -14,7 +14,7 @@ class RegionView(View):
         region = get_object_or_404(Region, code=region_id)
 
         vacancies = Vacancy.objects.filter(
-            region=region.name
+            region_code=region.code
         ).select_related('company', 'city', 'platform')
 
         paginator = Paginator(vacancies, 25)
