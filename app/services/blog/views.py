@@ -59,8 +59,8 @@ class BlogListView(View):
 
 
 class BlogDetailView(View):
-    def get(self, request: HttpRequest, pk: int) -> InertiaResponse:
-        post = get_object_or_404(BlogPost.objects.for_blog_detail(), pk=pk)
+    def get(self, request: HttpRequest, slug: str) -> InertiaResponse:
+        post = get_object_or_404(BlogPost.objects.for_blog_detail(), slug=slug)
         post_data = {
             "id": post.id,
             "slug": post.slug,
