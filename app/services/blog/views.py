@@ -63,6 +63,7 @@ class BlogDetailView(View):
         post = get_object_or_404(BlogPost.objects.for_blog_detail(), pk=pk)
         post_data = {
             "id": post.id,
+            "slug": post.slug,
             "title": post.title,
             "content_full": post.content_full,
             "created_at": post.created_at,
@@ -71,4 +72,24 @@ class BlogDetailView(View):
             "author": post.author.first_name,
             "tags": [tag.name for tag in post.tags.all()],
         }
-        return inertia_render(request, "BlogPost", props={"post": post_data})
+
+        recommended_posts = list(
+            BlogPost.objects.recommended_for(post).values(
+                "id",
+                "slug",
+                "title",
+                "content_short",
+                "category__name",
+                "author__first_name",
+                "created_at",
+                "duration_minutes",
+            )
+        )
+        return inertia_render(
+            request,
+            "BlogPostPage",
+            props={
+                "post": post_data,
+                "recommended_posts": recommended_posts,
+            },
+        )
