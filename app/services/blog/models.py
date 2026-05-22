@@ -1,3 +1,5 @@
+import uuid
+
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -126,9 +128,26 @@ class BlogPost(models.Model):
     def __str__(self):
         return self.title
 
+    def _generate_unique_slug(self):
+        base_slug = slugify(self.title, allow_unicode=True)[:140]
+
+        if not base_slug:
+            base_slug = f"post-{uuid.uuid4().hex[:8]}"
+
+        slug = base_slug
+        counter = 1
+
+        while BlogPost.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+            suffix = f"-{counter}"
+            max_base_length = 150 - len(suffix)
+            slug = f"{base_slug[:max_base_length]}{suffix}"
+            counter += 1
+
+        return slug
+
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = (slugify(self.title) or "post")[:150]
+            self.slug = self._generate_unique_slug()
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

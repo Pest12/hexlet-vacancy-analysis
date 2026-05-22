@@ -73,23 +73,27 @@ class BlogDetailView(View):
             "tags": [tag.name for tag in post.tags.all()],
         }
 
-        recommended_posts = list(
-            BlogPost.objects.recommended_for(post).values(
-                "id",
-                "slug",
-                "title",
-                "content_short",
-                "category__name",
-                "author__first_name",
-                "created_at",
-                "duration_minutes",
-            )
-        )
+        recommended_posts = BlogPost.objects.recommended_for(post)
+
+        recommended_posts_data = [
+            {
+                "id": rec_post.id,
+                "slug": rec_post.slug,
+                "title": rec_post.title,
+                "content_short": rec_post.content_short,
+                "category": rec_post.category.name,
+                "author": rec_post.author.first_name,
+                "created_at": rec_post.created_at,
+                "duration_minutes": rec_post.duration_minutes,
+            }
+            for rec_post in recommended_posts
+        ]
+
         return inertia_render(
             request,
             "BlogPostPage",
             props={
                 "post": post_data,
-                "recommended_posts": recommended_posts,
+                "recommended_posts": recommended_posts_data,
             },
         )
