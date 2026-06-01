@@ -11,7 +11,7 @@ from app.services.hh.hh_parser.utils.data_transformer import (
 from app.services.hh.hh_parser.utils.hh_regions_parser import REGION_NAME_TO_CODE
 from app.services.vacancies.models import City, Company, Platform
 
-from .sj_regions_parser import get_sj_city_to_region_mapping
+from .regions_parser import get_sj_city_to_region_mapping
 
 
 def transform_superjob_data(item: dict[str, Any]) -> dict[str, Any]:
